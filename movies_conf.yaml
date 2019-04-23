@@ -1,0 +1,18 @@
+serviceConfig:
+  scheme:
+  hostName:
+  port:
+  path:
+
+loggerConfig:
+  outputDir:
+  outputFile:
+
+databaseConfig:
+  dbUsername:
+  dbPassword:
+  dbHostname:
+  dbPort:
+  dbDriver: com.mysql.cj.jdbc.Driver
+  dbName:
+  dbSettings: ?autoReconnect=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=PST
