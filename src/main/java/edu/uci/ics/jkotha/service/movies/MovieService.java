@@ -1,10 +1,10 @@
-package edu.uci.ics.UCInetID.service.movies;
+package edu.uci.ics.jkotha.service.movies;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import edu.uci.ics.UCInetID.service.movies.configs.ConfigsModel;
-import edu.uci.ics.UCInetID.service.movies.configs.MovieConfigs;
-import edu.uci.ics.UCInetID.service.movies.logger.ServiceLogger;
+import edu.uci.ics.jkotha.service.movies.configs.ConfigsModel;
+import edu.uci.ics.jkotha.service.movies.configs.MovieConfigs;
+import edu.uci.ics.jkotha.service.movies.logger.ServiceLogger;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.internal.util.ExceptionUtils;
@@ -20,9 +20,10 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class MovieService {
-    public static MovieService movieService;
+    private static MovieService movieService;
     private static Connection con = null;
     private static MovieConfigs movieConfigs = new MovieConfigs();
+
 
     public static void main(String[] args) {
         movieService = new MovieService();
@@ -162,7 +163,7 @@ public class MovieService {
             ServiceLogger.LOGGER.config("Building URI from movieConfigs...");
             URI uri = UriBuilder.fromUri(scheme + hostName + path).port(port).build();
             ServiceLogger.LOGGER.config("Final URI: " + uri.toString());
-            ResourceConfig rc = new ResourceConfig().packages("edu.uci.ics.UCInetID.service.movies.resources");
+            ResourceConfig rc = new ResourceConfig().packages("edu.uci.ics.jkotha.service.movies.resources");
             ServiceLogger.LOGGER.config("Set Jersey resources.");
             rc.register(JacksonFeature.class);
             ServiceLogger.LOGGER.config("Set Jackson as serializer.");

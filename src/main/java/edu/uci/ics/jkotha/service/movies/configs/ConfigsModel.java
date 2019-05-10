@@ -1,4 +1,4 @@
-package edu.uci.ics.UCInetID.service.movies.configs;
+package edu.uci.ics.jkotha.service.movies.configs;
 
 import java.util.Map;
 

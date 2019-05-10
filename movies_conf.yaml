@@ -1,18 +1,27 @@
 serviceConfig:
-  scheme:
-  hostName:
-  port:
-  path:
+  scheme: http://
+  hostName: 0.0.0.0
+  port: 6244
+  path: /api/movies
 
 loggerConfig:
-  outputDir:
-  outputFile:
+  outputDir: ./logs/
+  outputFile: totalLogFile.log
 
 databaseConfig:
-  dbUsername:
-  dbPassword:
-  dbHostname:
-  dbPort:
+  dbUsername: testuser
+  dbPassword: testuser
+  dbHostname: localhost
+  dbPort: 3306
   dbDriver: com.mysql.cj.jdbc.Driver
-  dbName:
+  dbName: movies
   dbSettings: ?autoReconnect=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=PST
+
+idmConfig:
+  scheme: http://
+  hostName: 0.0.0.0
+  port: 6243
+  path: /api/idm
+
+idmEndpoints:
+  privilege: /privilege

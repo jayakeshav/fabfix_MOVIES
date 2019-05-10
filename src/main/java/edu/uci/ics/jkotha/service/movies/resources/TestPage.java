@@ -1,6 +1,6 @@
-package edu.uci.ics.UCInetID.service.movies.resources;
+package edu.uci.ics.jkotha.service.movies.resources;
 
-import edu.uci.ics.UCInetID.service.movies.logger.ServiceLogger;
+import edu.uci.ics.jkotha.service.movies.logger.ServiceLogger;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

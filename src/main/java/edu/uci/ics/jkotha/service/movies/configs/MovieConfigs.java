@@ -1,6 +1,6 @@
-package edu.uci.ics.UCInetID.service.movies.configs;
+package edu.uci.ics.jkotha.service.movies.configs;
 
-import edu.uci.ics.UCInetID.service.movies.logger.ServiceLogger;
+import edu.uci.ics.jkotha.service.movies.logger.ServiceLogger;
 
 public class MovieConfigs {
     public final static int MIN_SERVICE_PORT = 1024;
@@ -8,11 +8,20 @@ public class MovieConfigs {
     // Default service configs
     private final String DEFAULT_SCHEME = "http://";
     private final String DEFAULT_HOSTNAME = "0.0.0.0";
-    private final int    DEFAULT_PORT = 6243;
+    private final int    DEFAULT_PORT = 6244;
     private final String DEFAULT_PATH = "/api/movies";
     // Default logger configs
     private final String DEFAULT_OUTPUTDIR = "./logs/";
     private final String DEFAULT_OUTPUTFILE = "movies.log";
+    // Default database configs
+    private final String DEFAULT_DBUSERNAME="testuser";
+    private final String DEFAULT_DBPASSWORD="testuser";
+    private final String DEFAULT_DBHOSTNAME="localhost";
+    private final int DEFAULT_DBPORT=3306;
+    private final String DEFAULT_DBDRIVER="com.mysql.cj.jdbc.Driver";
+    private final String DEFAULT_DBNAME="movies";
+    private final String DEFAULT_DBSETTINGS = "?autoReconnect=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=PST";
+
 
     // Service configs
     private String scheme;
@@ -33,7 +42,26 @@ public class MovieConfigs {
 
     private boolean dbConfigValid = true;
 
-    public MovieConfigs() { }
+    private static IdmConfigs idmConfigs = new IdmConfigs();
+
+    public MovieConfigs() {
+            //basic configs
+            scheme = DEFAULT_SCHEME;
+            hostName = DEFAULT_HOSTNAME;
+            port = DEFAULT_PORT;
+            path = DEFAULT_PATH;
+            //log-file configs
+            outputDir = DEFAULT_OUTPUTDIR;
+            outputFile = DEFAULT_OUTPUTFILE;
+            //database configurations
+            dbUsername = DEFAULT_DBUSERNAME;
+            dbPassword = DEFAULT_DBPASSWORD;
+            dbHostname = DEFAULT_DBHOSTNAME;
+            dbPort = DEFAULT_DBPORT;
+            dbDriver = DEFAULT_DBDRIVER;
+            dbName = DEFAULT_DBNAME;
+            dbSettings = DEFAULT_DBSETTINGS;
+    }
 
     public MovieConfigs(ConfigsModel cm) throws NullPointerException {
         if (cm == null) {
@@ -93,64 +121,67 @@ public class MovieConfigs {
             }
 
             // Set database configs
+            //set database configs
             dbUsername = cm.getDatabaseConfig().get("dbUsername");
             if (dbUsername == null) {
-                System.err.println("No database username found in configuration file.");
-                dbConfigValid = false;
+                dbUsername = DEFAULT_DBUSERNAME;
+                System.err.println("Database username not found in configuration file. Using default.");
             } else {
-                System.err.println("Database username: " + dbUsername);
+                System.err.println("Database user name: " + dbUsername);
             }
 
             dbPassword = cm.getDatabaseConfig().get("dbPassword");
             if (dbPassword == null) {
-                System.err.println("No database password found in configuration file.");
-                dbConfigValid = false;
+                dbPassword = DEFAULT_DBPASSWORD;
+                System.err.println("Database Password not found in configuration file. Using default.");
             } else {
-                System.err.println("Database password found in configuration file.");
-            }
-
-            dbHostname = cm.getDatabaseConfig().get("dbHostname");
-            if (dbHostname == null) {
-                System.err.println("No database hostname found in configuration file.");
-                dbConfigValid = false;
-            } else {
-                System.err.println("Database hostname: " + dbHostname);
+                System.err.println("Database Password: " + dbPassword);
             }
 
             dbPort = Integer.parseInt(cm.getDatabaseConfig().get("dbPort"));
             if (dbPort == 0) {
-                System.err.println("No database port found in configuration file.");
-                dbConfigValid = false;
-            } else if (dbPort < MIN_SERVICE_PORT || dbPort > MAX_SERVICE_PORT) {
-                System.err.println("Database port is not within a valid range.");
-                dbConfigValid = false;
+                dbPort = DEFAULT_DBPORT;
+                System.err.println("Database Port not found in configuration file. Using default.");
+            } else if (dbPort < 1024 || dbPort > 65536) {
+                dbPort = DEFAULT_DBPORT;
+                System.err.println("Database Port is not within valid range. Using default.");
             } else {
-                System.err.println("Database port: " + dbPort);
+                System.err.println("Database Port: " + dbPort);
             }
 
-            dbName = cm.getDatabaseConfig().get("dbName");
-            if (dbName == null) {
-                System.err.println("No database name found in configuration file.");
-                dbConfigValid = false;
+            dbHostname = cm.getDatabaseConfig().get("dbHostname");
+            if (dbHostname == null) {
+                dbHostname = DEFAULT_DBHOSTNAME;
+                System.err.println("Database hostname not found in configuration file. Using default.");
             } else {
-                System.err.println("Database name: " + dbName);
+                System.err.println("Database Hostname: " + dbHostname);
             }
 
             dbDriver = cm.getDatabaseConfig().get("dbDriver");
             if (dbDriver == null) {
-                System.err.println("No driver found in configuration file.");
-                dbConfigValid = false;
+                dbDriver = DEFAULT_DBDRIVER;
+                System.err.println("Database Driver not found in configuration file. Using default.");
             } else {
-                System.err.println("Database driver: " + dbDriver);
+                System.err.println("Database Driver " + dbDriver);
+            }
+
+            dbName = cm.getDatabaseConfig().get("dbName");
+            if (dbName == null) {
+                dbName = DEFAULT_DBNAME;
+                System.err.println("Database Name not found in configuration file. Using default.");
+            } else {
+                System.err.println("Database Name: " + dbName);
             }
 
             dbSettings = cm.getDatabaseConfig().get("dbSettings");
             if (dbSettings == null) {
-                System.err.println("No connection settings found in configuration file.");
-                dbConfigValid = false;
+                dbSettings = DEFAULT_DBSETTINGS;
+                System.err.println("Database settings not found in configuration file. Using default.");
             } else {
-                System.err.println("Database connection settings: " + dbSettings);
+                System.err.println("Database Settings: " + dbSettings);
             }
+
+            idmConfigs = new IdmConfigs(cm);
         }
     }
 
@@ -168,6 +199,7 @@ public class MovieConfigs {
         ServiceLogger.LOGGER.config("Database name: " + dbName);
         ServiceLogger.LOGGER.config("Database driver: " + dbDriver);
         ServiceLogger.LOGGER.config("Database connection settings: " + dbSettings);
+        idmConfigs.currentConfigs();
     }
 
     public String getDbUrl() {
@@ -229,4 +261,6 @@ public class MovieConfigs {
     public boolean isDbConfigValid() {
         return dbConfigValid;
     }
+
+    public static IdmConfigs getIdmConfigs() { return idmConfigs; }
 }
