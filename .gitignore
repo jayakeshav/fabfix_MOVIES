@@ -3,3 +3,12 @@
 
 # Ignore Gradle build output directory
 build
+
+# Ignore IntelliJ config director
+.idea
+
+# Ignore logs directory
+logs
+
+# Ignore yaml
+movies_conf.yaml
