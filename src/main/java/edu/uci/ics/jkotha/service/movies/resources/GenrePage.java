@@ -7,6 +7,7 @@ import edu.uci.ics.jkotha.service.movies.Models.DefaultResponseModel;
 import edu.uci.ics.jkotha.service.movies.Models.GenreAddRequestModel;
 import edu.uci.ics.jkotha.service.movies.Models.GenresResponseModel;
 import edu.uci.ics.jkotha.service.movies.MovieService;
+import edu.uci.ics.jkotha.service.movies.ServerIntermediates.IdmRequests;
 import edu.uci.ics.jkotha.service.movies.logger.ServiceLogger;
 import edu.uci.ics.jkotha.service.movies.support.FunctionsRequired;
 import org.glassfish.jersey.internal.util.ExceptionUtils;
@@ -36,11 +37,11 @@ public class GenrePage {
         GenresResponseModel responseModel;
 
         //check for privilege
-//        if(!IdmRequests.hasPrivilegeLevelof3(email)){
-//            ServiceLogger.LOGGER.info("Result code:"+141);
-//            responseModel = new GenresResponseModel(141);
-//            return Response.status(Response.Status.OK).header("email",email).header("sessionId",sessionId).header("transactionId",transactionId).entity(responseModel).build();
-//        }
+        if(!IdmRequests.hasPrivilegeLevelof3(email)){
+            ServiceLogger.LOGGER.info("Result code:"+141);
+            responseModel = new GenresResponseModel(141);
+            return Response.status(Response.Status.OK).header("email",email).header("sessionId",sessionId).header("transactionId",transactionId).entity(responseModel).build();
+        }
 
         ServiceLogger.LOGGER.info("Result code:"+219);
         responseModel = new GenresResponseModel(219, FunctionsRequired.getGenres());
@@ -63,11 +64,11 @@ public class GenrePage {
         DefaultResponseModel responseModel;
         GenreAddRequestModel requestModel;
         //check for privilege
-//        if(!IdmRequests.hasPrivilegeLevelof3(email)){
-//            ServiceLogger.LOGGER.info("Result code:"+141);
-//            responseModel = new DefaultResponseModel(141);
-//            return Response.status(Response.Status.OK).header("email",email).header("sessionId",sessionId).header("transactionId",transactionId).entity(responseModel).build();
-//        }
+        if(!IdmRequests.hasPrivilegeLevelof3(email)){
+            ServiceLogger.LOGGER.info("Result code:"+141);
+            responseModel = new DefaultResponseModel(141);
+            return Response.status(Response.Status.OK).header("email",email).header("sessionId",sessionId).header("transactionId",transactionId).entity(responseModel).build();
+        }
 
         ObjectMapper mapper = new ObjectMapper();
         try {
@@ -78,8 +79,8 @@ public class GenrePage {
             query.setString(1,requestModel.getName());
             query.executeUpdate();
 
-            ServiceLogger.LOGGER.info("Result code:"+"code");//code genre add
-            responseModel = new DefaultResponseModel(0);//code genre add
+            ServiceLogger.LOGGER.info("Result code:"+217);//code genre add
+            responseModel = new DefaultResponseModel(217);//code genre add
             return Response.status(Response.Status.OK).header("email",email).header("sessionId",sessionId).header("transactionId",transactionId).entity(responseModel).build();
         }
         catch (IOException e){
@@ -96,8 +97,8 @@ public class GenrePage {
                 }
             }catch (SQLException e){
                 ServiceLogger.LOGGER.warning(ExceptionUtils.exceptionStackTraceAsString(e));
-                ServiceLogger.LOGGER.info("Result code:"+"code");//code genre could not add
-                responseModel = new DefaultResponseModel(0);//code genre could not add
+                ServiceLogger.LOGGER.info("Result code:"+218);//code genre could not add
+                responseModel = new DefaultResponseModel(218);//code genre could not add
                 return Response.status(Response.Status.OK).header("email",email).header("sessionId",sessionId).header("transactionId",transactionId).entity(responseModel).build();
             }
         return Response.status(Response.Status.INTERNAL_SERVER_ERROR).header("email",email).header("sessionId",sessionId).header("transactionId",transactionId).build();
@@ -117,11 +118,12 @@ public class GenrePage {
         GenresResponseModel responseModel;
 
         //check for privilege
-//        if(!IdmRequests.hasPrivilegeLevelof3(email)){
-//            ServiceLogger.LOGGER.info("Result code:"+141);
-//            responseModel = new GenresResponseModel(141);
-//            return Response.status(Response.Status.OK).header("email",email).header("sessionId",sessionId).header("transactionId",transactionId).entity(responseModel).build();
-//        }
+        if(!IdmRequests.hasPrivilegeLevelof3(email)){
+            ServiceLogger.LOGGER.info("Result code:"+141);
+            responseModel = new GenresResponseModel(141);
+            return Response.status(Response.Status.OK).header("email",email).header("sessionId",sessionId).header("transactionId",transactionId).entity(responseModel).build();
+        }
+
         try{
             String statement = "select g.id,g.name from genres as g , genres_in_movies as gm , movies as m where " +
                     "g.id =gm.genreId and gm.movieId = m.id and m.id = ?";

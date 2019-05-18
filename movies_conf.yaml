@@ -1,7 +1,7 @@
 serviceConfig:
   scheme: http://
-  hostName: 0.0.0.0
-  port: 6244
+  hostName: localhost
+  port: 6245
   path: /api/movies
 
 loggerConfig:
@@ -19,8 +19,8 @@ databaseConfig:
 
 idmConfig:
   scheme: http://
-  hostName: 0.0.0.0
-  port: 6243
+  hostName: localhost
+  port: 6244
   path: /api/idm
 
 idmEndpoints:

@@ -44,9 +44,9 @@ public class FunctionsRequired {
             case 216:
                 return "Movie already exists.";
             case 217:
-                return "Movie successfully removed.";
+                return "Genre successfully added.";
             case 218:
-                return "Could not remove movie";
+                return "Genre could not be added";
             case 219:
                 return "Genres successfully retrieved.";
             case 220:
@@ -62,27 +62,33 @@ public class FunctionsRequired {
             case 232:
                 return "Star already exists in movie";
             case 240:
-                return "Rating successfully updated";
+                return "Movie successfully removed.";
             case 241:
+                return "Could not remove movie.";
+            case 242:
+                return "Movie has been already removed.";
+            case 250:
+                return "Rating successfully updated";
+            case 251:
                 return "Could not update rating.";
         }
         return null;
     }
 
-    public static boolean isValidEmail(String email){
-        String[] components1 = email.split("@",0);
-        if (components1.length!=2 | components1[0].length()==0)
-            return false;
-        String[] components2 = components1[1].split("\\.",0);
-        if (components2.length<2 ){
-            return false;
-        }
-        else {
-            if( components2[0].length()==0 | components2[1].length()==0)
-                return false;
-        }
-        return true;
-    }
+//    public static boolean isValidEmail(String email){
+//        String[] components1 = email.split("@",0);
+//        if (components1.length!=2 | components1[0].length()==0)
+//            return false;
+//        String[] components2 = components1[1].split("\\.",0);
+//        if (components2.length<2 ){
+//            return false;
+//        }
+//        else {
+//            if( components2[0].length()==0 | components2[1].length()==0)
+//                return false;
+//        }
+//        return true;
+//    }
 
 //    private StarModel[] toStarArray(ResultSet resultSet){
 //        ArrayList<StarModel> finalResult = new ArrayList<>();
@@ -170,65 +176,65 @@ public class FunctionsRequired {
         return result;
     }
 
-    public static MovieModel[] forPrivilegedSearch(ResultSet rs){
-        ArrayList<MovieModel> list = new ArrayList<>();
-        try {
-            if (!rs.next())
-                return null;
-            else {
-                rs.previous();
-            }
-            while (rs.next()){
-                MovieModel mm = new MovieModel(rs.getString("id"),rs.getString("title"),
-                        rs.getString("director"),rs.getInt("year"),rs.getString("backdrop_path"),
-                        rs.getInt("budget"),rs.getString("overview"),
-                        rs.getString("poster_path"),rs.getInt("revenue"),rs.getFloat("rating"),
-                        rs.getInt("numVotes"),toGenreArray(rs.getString("genre")),
-                        getStarArray(rs.getString("stars")),rs.getInt("hidden"));
-                list.add(mm);
+//    public static MovieModel[] forPrivilegedSearch(ResultSet rs){
+//        ArrayList<MovieModel> list = new ArrayList<>();
+//        try {
+//            if (!rs.next())
+//                return null;
+//            else {
+//                rs.previous();
+//            }
+//            while (rs.next()){
+//                MovieModel mm = new MovieModel(rs.getString("id"),rs.getString("title"),
+//                        rs.getString("director"),rs.getInt("year"),rs.getString("backdrop_path"),
+//                        rs.getInt("budget"),rs.getString("overview"),
+//                        rs.getString("poster_path"),rs.getInt("revenue"),rs.getFloat("rating"),
+//                        rs.getInt("numVotes"),toGenreArray(rs.getString("genre")),
+//                        getStarArray(rs.getString("stars")),rs.getInt("hidden"));
+//                list.add(mm);
+//
+//            }
+//        }catch (SQLException e){
+//            ServiceLogger.LOGGER.warning(ExceptionUtils.exceptionStackTraceAsString(e));
+//        }
+//        if (list.size()==0)
+//            return null;
+//        MovieModel[] result = new MovieModel[list.size()];
+//        for (int i=0;i<list.size();++i){
+//            result[i] = list.get(i);
+//        }
+//        return result;
+//    }
 
-            }
-        }catch (SQLException e){
-            ServiceLogger.LOGGER.warning(ExceptionUtils.exceptionStackTraceAsString(e));
-        }
-        if (list.size()==0)
-            return null;
-        MovieModel[] result = new MovieModel[list.size()];
-        for (int i=0;i<list.size();++i){
-            result[i] = list.get(i);
-        }
-        return result;
-    }
-
-    public static MovieModel[] forUserSearch(ResultSet rs){
-        ArrayList<MovieModel> list = new ArrayList<>();
-        try {
-            if (!rs.next())
-                return null;
-            else {
-                rs.previous();
-            }
-            while (rs.next()){
-                MovieModel mm = new MovieModel(rs.getString("id"),rs.getString("title"),
-                        rs.getString("director"),rs.getInt("year"),rs.getString("backdrop_path"),
-                        rs.getInt("budget"),rs.getString("overview"),
-                        rs.getString("poster_path"),rs.getInt("revenue"),rs.getFloat("rating"),
-                        rs.getInt("numVotes"),toGenreArray(rs.getString("genre")),
-                        getStarArray(rs.getString("stars")),null);
-                list.add(mm);
-
-            }
-        }catch (SQLException e){
-            ServiceLogger.LOGGER.warning(ExceptionUtils.exceptionStackTraceAsString(e));
-        }
-        if (list.size()==0)
-            return null;
-        MovieModel[] result = new MovieModel[list.size()];
-        for (int i=0;i<list.size();++i){
-            result[i] = list.get(i);
-        }
-        return result;
-    }
+//    public static MovieModel[] forUserSearch(ResultSet rs){
+//        ArrayList<MovieModel> list = new ArrayList<>();
+//        try {
+//            if (!rs.next())
+//                return null;
+//            else {
+//                rs.previous();
+//            }
+//            while (rs.next()){
+//                MovieModel mm = new MovieModel(rs.getString("id"),rs.getString("title"),
+//                        rs.getString("director"),rs.getInt("year"),rs.getString("backdrop_path"),
+//                        rs.getInt("budget"),rs.getString("overview"),
+//                        rs.getString("poster_path"),rs.getInt("revenue"),rs.getFloat("rating"),
+//                        rs.getInt("numVotes"),toGenreArray(rs.getString("genre")),
+//                        getStarArray(rs.getString("stars")),null);
+//                list.add(mm);
+//
+//            }
+//        }catch (SQLException e){
+//            ServiceLogger.LOGGER.warning(ExceptionUtils.exceptionStackTraceAsString(e));
+//        }
+//        if (list.size()==0)
+//            return null;
+//        MovieModel[] result = new MovieModel[list.size()];
+//        for (int i=0;i<list.size();++i){
+//            result[i] = list.get(i);
+//        }
+//        return result;
+//    }
 
 //    public static MovieModel[] forUserSearch1(ResultSet rs){
 //        ArrayList<MovieModel> list = new ArrayList<>();
@@ -260,30 +266,30 @@ public class FunctionsRequired {
 //        return result;
 //    }
 
-
-    public static MovieModelForStars[] getMovieModelforStars(String presplitString){
-        if (presplitString==null)
-            return null;
-        String[] splitMovies = stringSplitter(presplitString,1);
-        ArrayList<MovieModelForStars> list = new ArrayList<>();
-        if (splitMovies==null)
-            return null;
-        for (String s:splitMovies){
-            String[] splitModel = stringSplitter(s,2);
-            MovieModelForStars movie;
-            if (splitModel!=null){
-                movie = new MovieModelForStars(splitModel[0],splitModel[1]);
-                list.add(movie);
-            }
-        }
-        if (list.size()==0)
-            return null;
-        MovieModelForStars[] result = new MovieModelForStars[list.size()];
-        for (int i=0;i<list.size();++i){
-            result[i] = list.get(i);
-        }
-        return result;
-    }
+//
+//    public static MovieModelForStars[] getMovieModelforStars(String presplitString){
+//        if (presplitString==null)
+//            return null;
+//        String[] splitMovies = stringSplitter(presplitString,1);
+//        ArrayList<MovieModelForStars> list = new ArrayList<>();
+//        if (splitMovies==null)
+//            return null;
+//        for (String s:splitMovies){
+//            String[] splitModel = stringSplitter(s,2);
+//            MovieModelForStars movie;
+//            if (splitModel!=null){
+//                movie = new MovieModelForStars(splitModel[0],splitModel[1]);
+//                list.add(movie);
+//            }
+//        }
+//        if (list.size()==0)
+//            return null;
+//        MovieModelForStars[] result = new MovieModelForStars[list.size()];
+//        for (int i=0;i<list.size();++i){
+//            result[i] = list.get(i);
+//        }
+//        return result;
+//    }
 
     public static StarModel[] getStarModel(ResultSet rs){
         ArrayList<StarModel> list  = new ArrayList<>();
@@ -293,8 +299,7 @@ public class FunctionsRequired {
                 starModel = new StarModel(
                         rs.getString("id"),
                         rs.getString("name"),
-                        rs.getInt("birthYear"),
-                        getMovieModelforStars(rs.getString("movies"))
+                        rs.getInt("birthYear")
                 );
                 list.add(starModel);
                 //ServiceLogger.LOGGER.info(starModel.getMovieId());

@@ -98,6 +98,12 @@ public class AddPage {
             insertStatement.setInt(9,revenue);
             insertStatement.execute();
 
+            //insert ratings
+            String ratings = "insert into ratings(movieId, rating, numVotes) values (?,0.0,0)";
+            PreparedStatement ratingStatement = MovieService.getCon().prepareStatement(ratings);
+            ratingStatement.setString(1,id);
+            ratingStatement.execute();
+
             //insert Genres
             int[] genre = FunctionsRequired.insertGenres(Genres,id);
             if (genre.length != Genres.length){

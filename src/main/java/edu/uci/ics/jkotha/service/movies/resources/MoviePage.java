@@ -19,12 +19,12 @@ import javax.ws.rs.core.Response;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-@Path("/{id}")
+@Path("get/{movieid}")
 public class MoviePage {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getFromId(@PathParam("id") String id,
+    public Response getFromId(@PathParam("movieid") String id,
                               @Context HttpHeaders headers)
     {
         ServiceLogger.LOGGER.info("movies/id= "+id+" requested");
