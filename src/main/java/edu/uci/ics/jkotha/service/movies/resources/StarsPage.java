@@ -34,7 +34,7 @@ public class StarsPage {
         StarsSearchResponseModel responseModel = null;
         String email = headers.getHeaderString("email");
         String sessionId = headers.getHeaderString("sessionId");
-        String transactionId = headers.getHeaderString("transactionId");
+        String transactionId = headers.getHeaderString("transactionID");
 
         if (limit<=0)
             limit = 10;
@@ -77,10 +77,10 @@ public class StarsPage {
             else {
                 responseModel = new StarsSearchResponseModel(212, result);
             }
-            return Response.status(Response.Status.OK).header("email",email).header("sessionId",sessionId).header("transactionId",transactionId).entity(responseModel).build();
+            return Response.status(Response.Status.OK).header("email", email).header("sessionId", sessionId).header("transactionID", transactionId).entity(responseModel).build();
         }catch (Exception e){
             ServiceLogger.LOGGER.warning(ExceptionUtils.exceptionStackTraceAsString(e));
         }
-        return Response.status(Response.Status.INTERNAL_SERVER_ERROR).header("email",email).header("sessionId",sessionId).header("transactionId",transactionId).build();
+        return Response.status(Response.Status.INTERNAL_SERVER_ERROR).header("email", email).header("sessionId", sessionId).header("transactionID", transactionId).build();
     }
 }

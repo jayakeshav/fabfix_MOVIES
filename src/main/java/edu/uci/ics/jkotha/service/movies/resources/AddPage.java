@@ -34,7 +34,7 @@ public class AddPage {
         ServiceLogger.LOGGER.info("add page requested");
         String email = headers.getHeaderString("email");
         String sessionId = headers.getHeaderString("sessionID");
-        String transactionId = headers.getHeaderString("transactionId");
+        String transactionId = headers.getHeaderString("transactionID");
 
         AddRequestModel requestModel ;
         AddResponseModel responseModel ;
@@ -45,7 +45,7 @@ public class AddPage {
             if(!IdmRequests.hasPrivilegeLevelof3(email)){
                 ServiceLogger.LOGGER.info("Result code:"+141);
                 responseModel = new AddResponseModel(141);
-                return Response.status(Response.Status.OK).header("email",email).header("sessionId",sessionId).header("transactionId",transactionId).entity(responseModel).build();
+                return Response.status(Response.Status.OK).header("email", email).header("sessionId", sessionId).header("transactionID", transactionId).entity(responseModel).build();
             }
 
             requestModel = mapper.readValue(jsonText, AddRequestModel.class);
@@ -59,7 +59,7 @@ public class AddPage {
                 if (rs.getInt("test")==1){
                     ServiceLogger.LOGGER.info("Result code:"+216);
                     responseModel = new AddResponseModel(216);
-                    return Response.status(Response.Status.OK).header("email",email).header("sessionId",sessionId).header("transactionId",transactionId).entity(responseModel).build();
+                    return Response.status(Response.Status.OK).header("email", email).header("sessionId", sessionId).header("transactionID", transactionId).entity(responseModel).build();
                 }
             }
 
@@ -112,27 +112,27 @@ public class AddPage {
 
             ServiceLogger.LOGGER.info("Result code:"+214);
             responseModel = new AddResponseModel(214,id,genre);
-            return Response.status(Response.Status.OK).header("email",email).header("sessionId",sessionId).header("transactionId",transactionId).entity(responseModel).build();
+            return Response.status(Response.Status.OK).header("email", email).header("sessionId", sessionId).header("transactionID", transactionId).entity(responseModel).build();
         }
         catch (IOException e){
             ServiceLogger.LOGGER.warning(ExceptionUtils.exceptionStackTraceAsString(e));
             if (e instanceof JsonMappingException){
                 ServiceLogger.LOGGER.info("result code:"+-2);
                 responseModel = new AddResponseModel(-2);
-                return Response.status(Response.Status.BAD_REQUEST).header("email",email).header("sessionId",sessionId).header("transactionId",transactionId).entity(responseModel).build();
+                return Response.status(Response.Status.BAD_REQUEST).header("email", email).header("sessionId", sessionId).header("transactionID", transactionId).entity(responseModel).build();
             }
             else if (e instanceof JsonParseException){
                 ServiceLogger.LOGGER.info("result code:"+-3);
                 responseModel = new AddResponseModel(-3);
-                return Response.status(Response.Status.BAD_REQUEST).header("email",email).header("sessionId",sessionId).header("transactionId",transactionId).entity(responseModel).build();
+                return Response.status(Response.Status.BAD_REQUEST).header("email", email).header("sessionId", sessionId).header("transactionID", transactionId).entity(responseModel).build();
             }
         }
         catch (SQLException e){
             ServiceLogger.LOGGER.warning(ExceptionUtils.exceptionStackTraceAsString(e));
             ServiceLogger.LOGGER.info("Result code:"+215);
             responseModel = new AddResponseModel(215);
-            return Response.status(Response.Status.OK).header("email",email).header("sessionId",sessionId).header("transactionId",transactionId).entity(responseModel).build();
+            return Response.status(Response.Status.OK).header("email", email).header("sessionId", sessionId).header("transactionID", transactionId).entity(responseModel).build();
         }
-        return Response.status(Response.Status.INTERNAL_SERVER_ERROR).header("email",email).header("sessionId",sessionId).header("transactionId",transactionId).build();
+        return Response.status(Response.Status.INTERNAL_SERVER_ERROR).header("email", email).header("sessionId", sessionId).header("transactionID", transactionId).build();
     }
 }

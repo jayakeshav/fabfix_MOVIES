@@ -32,7 +32,7 @@ public class StarPage {
         ServiceLogger.LOGGER.info("star/id= "+id+" requested");
         String email = headers.getHeaderString("email");
         String sessionId = headers.getHeaderString("sessionID");
-        String transactionId = headers.getHeaderString("transactionId");
+        String transactionId = headers.getHeaderString("transactionID");
         StarIdResponseModel responseModel = null;
 
         String statement5 = "select id, name, birthYear from stars where id = ?";
@@ -47,17 +47,17 @@ public class StarPage {
                         rs.getInt("birthYear"));
                 responseModel = new StarIdResponseModel(212,starModel);
                 ServiceLogger.LOGGER.info("Result code:"+212);
-                return Response.status(Response.Status.OK).header("email",email).header("sessionId",sessionId).header("transactionId",transactionId).entity(responseModel).build();
+                return Response.status(Response.Status.OK).header("email", email).header("sessionId", sessionId).header("transactionID", transactionId).entity(responseModel).build();
             }
             else {
                 ServiceLogger.LOGGER.info("Result code:"+213);
                 responseModel = new StarIdResponseModel(213);
-                return Response.status(Response.Status.OK).header("email",email).header("sessionId",sessionId).header("transactionId",transactionId).entity(responseModel).build();
+                return Response.status(Response.Status.OK).header("email", email).header("sessionId", sessionId).header("transactionID", transactionId).entity(responseModel).build();
             }
 
         }catch (Exception e){
             ServiceLogger.LOGGER.warning(ExceptionUtils.exceptionStackTraceAsString(e));
         }
-        return Response.status(Response.Status.INTERNAL_SERVER_ERROR).header("email",email).header("sessionId",sessionId).header("transactionId",transactionId).build();
+        return Response.status(Response.Status.INTERNAL_SERVER_ERROR).header("email", email).header("sessionId", sessionId).header("transactionID", transactionId).build();
     }
 }

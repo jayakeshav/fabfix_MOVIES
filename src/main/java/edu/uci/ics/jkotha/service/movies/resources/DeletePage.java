@@ -25,14 +25,14 @@ public class DeletePage {
         ServiceLogger.LOGGER.info("movies/delete = "+id+" requested");
         String email = headers.getHeaderString("email");
         String sessionId = headers.getHeaderString("sessionID");
-        String transactionId = headers.getHeaderString("transactionId");
+        String transactionId = headers.getHeaderString("transactionID");
         DefaultResponseModel responseModel ;
 
         //check for privilege
         if(!IdmRequests.hasPrivilegeLevelof3(email)){
             ServiceLogger.LOGGER.info("Result code:"+141);
             responseModel = new DefaultResponseModel(141);
-            return Response.status(Response.Status.OK).header("email",email).header("sessionId",sessionId).header("transactionId",transactionId).entity(responseModel).build();
+            return Response.status(Response.Status.OK).header("email", email).header("sessionId", sessionId).header("transactionID", transactionId).entity(responseModel).build();
         }
         // remove movie
         try {
@@ -50,17 +50,17 @@ public class DeletePage {
             if (hidden==1){
                 ServiceLogger.LOGGER.info("Result code:"+242+" with no of updates ="+res);
                 responseModel = new DefaultResponseModel(242);
-                return Response.status(Response.Status.OK).header("email",email).header("sessionId",sessionId).header("transactionId",transactionId).entity(responseModel).build();
+                return Response.status(Response.Status.OK).header("email", email).header("sessionId", sessionId).header("transactionID", transactionId).entity(responseModel).build();
             }
 
             ServiceLogger.LOGGER.info("Result code:"+240+" with no of updates ="+res);
             responseModel = new DefaultResponseModel(240);
-            return Response.status(Response.Status.OK).header("email",email).header("sessionId",sessionId).header("transactionId",transactionId).entity(responseModel).build();
+            return Response.status(Response.Status.OK).header("email", email).header("sessionId", sessionId).header("transactionID", transactionId).entity(responseModel).build();
         }catch (SQLException e){
             ServiceLogger.LOGGER.warning(ExceptionUtils.exceptionStackTraceAsString(e));
             ServiceLogger.LOGGER.info("Result code:"+241);
             responseModel = new DefaultResponseModel(241);
-            return Response.status(Response.Status.OK).header("email",email).header("sessionId",sessionId).header("transactionId",transactionId).entity(responseModel).build();
+            return Response.status(Response.Status.OK).header("email", email).header("sessionId", sessionId).header("transactionID", transactionId).entity(responseModel).build();
         }
 
 

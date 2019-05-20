@@ -36,7 +36,7 @@ public class StarAddPage {
         ServiceLogger.LOGGER.info("add star page requested");
         String email = headers.getHeaderString("email");
         String sessionId = headers.getHeaderString("sessionID");
-        String transactionId = headers.getHeaderString("transactionId");
+        String transactionId = headers.getHeaderString("transactionID");
         ObjectMapper mapper = new ObjectMapper();
         StarAddRequestModel requestModel;
         DefaultResponseModel responseModel;
@@ -45,7 +45,7 @@ public class StarAddPage {
         if(!IdmRequests.hasPrivilegeLevelof3(email)){
             ServiceLogger.LOGGER.info("Result code:"+141);
             responseModel = new DefaultResponseModel(141);
-            return Response.status(Response.Status.OK).header("email",email).header("sessionId",sessionId).header("transactionId",transactionId).entity(responseModel).build();
+            return Response.status(Response.Status.OK).header("email", email).header("sessionId", sessionId).header("transactionID", transactionId).entity(responseModel).build();
         }
         try {
             requestModel = mapper.readValue(jsonText, StarAddRequestModel.class);
@@ -60,7 +60,7 @@ public class StarAddPage {
                 if (rs.getInt("test")==1){
                     ServiceLogger.LOGGER.info("Result code:"+222);
                     responseModel = new DefaultResponseModel(222);
-                    return Response.status(Response.Status.OK).header("email",email).header("sessionId",sessionId).header("transactionId",transactionId).entity(responseModel).build();
+                    return Response.status(Response.Status.OK).header("email", email).header("sessionId", sessionId).header("transactionID", transactionId).entity(responseModel).build();
                 }
             }
 
@@ -83,7 +83,7 @@ public class StarAddPage {
             insertStatement.execute();
             ServiceLogger.LOGGER.info("Result code:"+220);
             responseModel = new DefaultResponseModel(220);
-            return Response.status(Response.Status.OK).header("email",email).header("sessionId",sessionId).header("transactionId",transactionId).entity(responseModel).build();
+            return Response.status(Response.Status.OK).header("email", email).header("sessionId", sessionId).header("transactionID", transactionId).entity(responseModel).build();
 
         }
         catch (IOException e){
@@ -91,21 +91,21 @@ public class StarAddPage {
             if (e instanceof JsonMappingException){
                 ServiceLogger.LOGGER.info("result code:"+-2);
                 responseModel = new DefaultResponseModel(-2);
-                return Response.status(Response.Status.BAD_REQUEST).header("email",email).header("sessionId",sessionId).header("transactionId",transactionId).entity(responseModel).build();
+                return Response.status(Response.Status.BAD_REQUEST).header("email", email).header("sessionId", sessionId).header("transactionID", transactionId).entity(responseModel).build();
             }
             else if (e instanceof JsonParseException){
                 ServiceLogger.LOGGER.info("result code:"+-3);
                 responseModel = new DefaultResponseModel(-3);
-                return Response.status(Response.Status.BAD_REQUEST).header("email",email).header("sessionId",sessionId).header("transactionId",transactionId).entity(responseModel).build();
+                return Response.status(Response.Status.BAD_REQUEST).header("email", email).header("sessionId", sessionId).header("transactionID", transactionId).entity(responseModel).build();
             }
         }
         catch (SQLException e){
             ServiceLogger.LOGGER.warning(ExceptionUtils.exceptionStackTraceAsString(e));
             ServiceLogger.LOGGER.info("Result code:"+221);
             responseModel = new DefaultResponseModel(221);
-            return Response.status(Response.Status.OK).header("email",email).header("sessionId",sessionId).header("transactionId",transactionId).entity(responseModel).build();
+            return Response.status(Response.Status.OK).header("email", email).header("sessionId", sessionId).header("transactionID", transactionId).entity(responseModel).build();
         }
-        return Response.status(Response.Status.INTERNAL_SERVER_ERROR).header("email",email).header("sessionId",sessionId).header("transactionId",transactionId).build();
+        return Response.status(Response.Status.INTERNAL_SERVER_ERROR).header("email", email).header("sessionId", sessionId).header("transactionID", transactionId).build();
     }
 
     @Path("/starsin")
@@ -116,7 +116,7 @@ public class StarAddPage {
         ServiceLogger.LOGGER.info("add star page requested");
         String email = headers.getHeaderString("email");
         String sessionId = headers.getHeaderString("sessionID");
-        String transactionId = headers.getHeaderString("transactionId");
+        String transactionId = headers.getHeaderString("transactionID");
         ObjectMapper mapper = new ObjectMapper();
         DefaultResponseModel responseModel;
         StarAddMovieRequestModel requestModel;
@@ -125,7 +125,7 @@ public class StarAddPage {
         if(!IdmRequests.hasPrivilegeLevelof3(email)){
             ServiceLogger.LOGGER.info("Result code:"+141);
             responseModel = new DefaultResponseModel(141);
-            return Response.status(Response.Status.OK).header("email",email).header("sessionId",sessionId).header("transactionId",transactionId).entity(responseModel).build();
+            return Response.status(Response.Status.OK).header("email", email).header("sessionId", sessionId).header("transactionID", transactionId).entity(responseModel).build();
         }
 
         try {
@@ -156,7 +156,7 @@ public class StarAddPage {
                 if (rs.getInt("test")==1){
                     ServiceLogger.LOGGER.info("Result code:"+232);
                     responseModel = new DefaultResponseModel(232);
-                    return Response.status(Response.Status.OK).header("email",email).header("sessionId",sessionId).header("transactionId",transactionId).entity(responseModel).build();
+                    return Response.status(Response.Status.OK).header("email", email).header("sessionId", sessionId).header("transactionID", transactionId).entity(responseModel).build();
                 }
             }
 
@@ -168,28 +168,28 @@ public class StarAddPage {
             insertStatement.execute();
             ServiceLogger.LOGGER.info("Result code:"+230);
             responseModel = new DefaultResponseModel(230);
-            return Response.status(Response.Status.OK).header("email",email).header("sessionId",sessionId).header("transactionId",transactionId).entity(responseModel).build();
+            return Response.status(Response.Status.OK).header("email", email).header("sessionId", sessionId).header("transactionID", transactionId).entity(responseModel).build();
         }
         catch (IOException e){
             ServiceLogger.LOGGER.warning(ExceptionUtils.exceptionStackTraceAsString(e));
             if (e instanceof JsonMappingException){
                 ServiceLogger.LOGGER.info("result code:"+-2);
                 responseModel = new DefaultResponseModel(-2);
-                return Response.status(Response.Status.BAD_REQUEST).header("email",email).header("sessionId",sessionId).header("transactionId",transactionId).entity(responseModel).build();
+                return Response.status(Response.Status.BAD_REQUEST).header("email", email).header("sessionId", sessionId).header("transactionID", transactionId).entity(responseModel).build();
             }
             else if (e instanceof JsonParseException){
                 ServiceLogger.LOGGER.info("result code:"+-3);
                 responseModel = new DefaultResponseModel(-3);
-                return Response.status(Response.Status.BAD_REQUEST).header("email",email).header("sessionId",sessionId).header("transactionId",transactionId).entity(responseModel).build();
+                return Response.status(Response.Status.BAD_REQUEST).header("email", email).header("sessionId", sessionId).header("transactionID", transactionId).entity(responseModel).build();
             }
         }
         catch (SQLException e){
             ServiceLogger.LOGGER.warning(ExceptionUtils.exceptionStackTraceAsString(e));
             ServiceLogger.LOGGER.info("Result code:"+231);
             responseModel = new DefaultResponseModel(231);
-            return Response.status(Response.Status.OK).header("email",email).header("sessionId",sessionId).header("transactionId",transactionId).entity(responseModel).build();
+            return Response.status(Response.Status.OK).header("email", email).header("sessionId", sessionId).header("transactionID", transactionId).entity(responseModel).build();
         }
-        return Response.status(Response.Status.INTERNAL_SERVER_ERROR).header("email",email).header("sessionId",sessionId).header("transactionId",transactionId).build();
+        return Response.status(Response.Status.INTERNAL_SERVER_ERROR).header("email", email).header("sessionId", sessionId).header("transactionID", transactionId).build();
     }
 
 }

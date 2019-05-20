@@ -30,7 +30,7 @@ public class MoviePage {
         ServiceLogger.LOGGER.info("movies/id= "+id+" requested");
         String email = headers.getHeaderString("email");
         String sessionId = headers.getHeaderString("sessionID");
-        String transactionId = headers.getHeaderString("transactionId");
+        String transactionId = headers.getHeaderString("transactionID");
         MovieIdResponseModel responseModel ;
 
 
@@ -53,7 +53,7 @@ public class MoviePage {
                 if (!privilegedUser && (rs.getInt("hidden")==1)){
                     ServiceLogger.LOGGER.info("Result code:"+141);
                     responseModel = new MovieIdResponseModel(141);
-                    return Response.status(Response.Status.OK).header("email",email).header("sessionId",sessionId).entity(responseModel).build();
+                    return Response.status(Response.Status.OK).header("email", email).header("sessionId", sessionId).header("transactionID", transactionId).entity(responseModel).build();
                 }
                 if (privilegedUser){
                     MovieModel mm = new MovieModel(rs.getString("id"),rs.getString("title"),
@@ -64,7 +64,7 @@ public class MoviePage {
                             FunctionsRequired.getStarArray(rs.getString("stars")),rs.getInt("hidden"));
                     ServiceLogger.LOGGER.info("Result code:"+210);
                     responseModel = new MovieIdResponseModel(210,mm);
-                    return Response.status(Response.Status.OK).header("email",email).header("sessionId",sessionId).header("transactionId",transactionId).entity(responseModel).build();
+                    return Response.status(Response.Status.OK).header("email", email).header("sessionId", sessionId).header("transactionID", transactionId).entity(responseModel).build();
                 }
                 else {
                     MovieModel mm = new MovieModel(rs.getString("id"),rs.getString("title"),
@@ -75,18 +75,18 @@ public class MoviePage {
                             FunctionsRequired.getStarArray(rs.getString("stars")),null);
                     ServiceLogger.LOGGER.info("Result code:"+210);
                     responseModel = new MovieIdResponseModel(210,mm);
-                    return Response.status(Response.Status.OK).header("email",email).header("sessionId",sessionId).header("transactionId",transactionId).entity(responseModel).build();
+                    return Response.status(Response.Status.OK).header("email", email).header("sessionId", sessionId).header("transactionID", transactionId).entity(responseModel).build();
                 }
 
             }
             else {
                 ServiceLogger.LOGGER.info("Result code:"+211);
                 responseModel = new MovieIdResponseModel(211);
-                return Response.status(Response.Status.OK).header("email",email).header("sessionId",sessionId).header("transactionId",transactionId).entity(responseModel).build();
+                return Response.status(Response.Status.OK).header("email", email).header("sessionId", sessionId).header("transactionID", transactionId).entity(responseModel).build();
             }
         }catch (Exception e){
             ServiceLogger.LOGGER.warning(ExceptionUtils.exceptionStackTraceAsString(e));
         }
-        return Response.status(Response.Status.INTERNAL_SERVER_ERROR).header("email",email).header("sessionId",sessionId).header("transactionId",transactionId).build();
+        return Response.status(Response.Status.INTERNAL_SERVER_ERROR).header("email", email).header("sessionId", sessionId).header("transactionID", transactionId).build();
     }
 }

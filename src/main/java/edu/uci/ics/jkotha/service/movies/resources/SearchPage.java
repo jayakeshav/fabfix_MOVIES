@@ -36,7 +36,7 @@ public class SearchPage {
         ServiceLogger.LOGGER.info("search page requested");
         String email = headers.getHeaderString("email");
         String sessionId = headers.getHeaderString("sessionID");
-        String transactionId = headers.getHeaderString("transactionId");
+        String transactionId = headers.getHeaderString("transactionID");
         SearchResponseModel responseModel;
 
         //make the queryParams with wild cards
@@ -88,18 +88,18 @@ public class SearchPage {
             if (movies==null){
                 ServiceLogger.LOGGER.info("response code:" + 211);
                 responseModel = new SearchResponseModel(211,null);
-                return Response.status(Response.Status.OK).header("email",email).header("sessionId",sessionId).header("transactionId",transactionId).entity(responseModel).build();
+                return Response.status(Response.Status.OK).header("email", email).header("sessionId", sessionId).header("transactionID", transactionId).entity(responseModel).build();
             }
             else {
                 ServiceLogger.LOGGER.info("response code:" + 210);
                 responseModel = new SearchResponseModel(210,movies);
-                return Response.status(Response.Status.OK).header("email",email).header("sessionId",sessionId).header("transactionId",transactionId).entity(responseModel).build();
+                return Response.status(Response.Status.OK).header("email", email).header("sessionId", sessionId).header("transactionID", transactionId).entity(responseModel).build();
             }
         }catch (SQLException e){
             ServiceLogger.LOGGER.warning(ExceptionUtils.exceptionStackTraceAsString(e));
         }
 
 
-        return Response.status(Response.Status.INTERNAL_SERVER_ERROR).header("email",email).header("sessionId",sessionId).header("transactionId",transactionId).build();
+        return Response.status(Response.Status.INTERNAL_SERVER_ERROR).header("email", email).header("sessionId", sessionId).header("transactionID", transactionId).build();
     }
 }

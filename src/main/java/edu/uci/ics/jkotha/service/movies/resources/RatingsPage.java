@@ -31,7 +31,7 @@ public class RatingsPage {
         ServiceLogger.LOGGER.info("stars page requested");
         String email = headers.getHeaderString("email");
         String sessionId = headers.getHeaderString("sessionId");
-        String transactionId = headers.getHeaderString("transactionId");
+        String transactionId = headers.getHeaderString("transactionID");
         ObjectMapper mapper = new ObjectMapper();
         RatingsReqModel requestModel;
         DefaultResponseModel responseModel;
@@ -58,13 +58,13 @@ public class RatingsPage {
 
                 ServiceLogger.LOGGER.info("result code:"+250);
                 responseModel = new DefaultResponseModel(250);
-                return Response.status(Response.Status.OK).header("email",email).header("sessionId",sessionId).header("transactionId",transactionId).entity(responseModel).build();
+                return Response.status(Response.Status.OK).header("email", email).header("sessionId", sessionId).header("transactionID", transactionId).entity(responseModel).build();
 
             }
             else {
                 ServiceLogger.LOGGER.info("result code:"+211);
                 responseModel = new DefaultResponseModel(211);
-                return Response.status(Response.Status.OK).header("email",email).header("sessionId",sessionId).header("transactionId",transactionId).entity(responseModel).build();
+                return Response.status(Response.Status.OK).header("email", email).header("sessionId", sessionId).header("transactionID", transactionId).entity(responseModel).build();
             }
         }
         catch (IOException e){
@@ -72,25 +72,24 @@ public class RatingsPage {
             if (e instanceof JsonMappingException){
                 ServiceLogger.LOGGER.info("result code:"+-2);
                 responseModel = new DefaultResponseModel(-2);
-                return Response.status(Response.Status.BAD_REQUEST).header("email",email).header("sessionId",sessionId).header("transactionId",transactionId).entity(responseModel).build();
+                return Response.status(Response.Status.BAD_REQUEST).header("email", email).header("sessionId", sessionId).header("transactionID", transactionId).entity(responseModel).build();
             }
             else if (e instanceof JsonParseException){
                 ServiceLogger.LOGGER.info("result code:"+-3);
                 responseModel = new DefaultResponseModel(-3);
-                return Response.status(Response.Status.BAD_REQUEST).header("email",email).header("sessionId",sessionId).header("transactionId",transactionId).entity(responseModel).build();
+                return Response.status(Response.Status.BAD_REQUEST).header("email", email).header("sessionId", sessionId).header("transactionID", transactionId).entity(responseModel).build();
             }
         }
         catch (SQLException e){
             ServiceLogger.LOGGER.warning(ExceptionUtils.exceptionStackTraceAsString(e));
             ServiceLogger.LOGGER.info("result code:"+251);
             responseModel = new DefaultResponseModel(251);
-            return Response.status(Response.Status.OK).header("email",email).header("sessionId",sessionId).header("transactionId",transactionId).entity(responseModel).build();
+            return Response.status(Response.Status.OK).header("email", email).header("sessionId", sessionId).header("transactionID", transactionId).entity(responseModel).build();
 
         }
 
 
-
-        return Response.status(Response.Status.INTERNAL_SERVER_ERROR).header("email",email).header("sessionId",sessionId).header("transactionId",transactionId).build();
+        return Response.status(Response.Status.INTERNAL_SERVER_ERROR).header("email", email).header("sessionId", sessionId).header("transactionID", transactionId).build();
 
     }
 }
