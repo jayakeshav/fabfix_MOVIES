@@ -83,6 +83,7 @@ public class SearchPage {
             query.setString(4,xgenre);
             query.setInt(5,limit);
             query.setInt(6,offset);
+            ServiceLogger.LOGGER.info(query.toString());
             ResultSet rs = query.executeQuery();
             MovieModel[] movies = FunctionsRequired.getMovieModelForSearch(rs,hasPrivilege);
             if (movies==null){
@@ -99,7 +100,7 @@ public class SearchPage {
             ServiceLogger.LOGGER.warning(ExceptionUtils.exceptionStackTraceAsString(e));
         }
 
-
+        ServiceLogger.LOGGER.warning("ISE");
         return Response.status(Response.Status.INTERNAL_SERVER_ERROR).header("email", email).header("sessionId", sessionId).header("transactionID", transactionId).build();
     }
 }

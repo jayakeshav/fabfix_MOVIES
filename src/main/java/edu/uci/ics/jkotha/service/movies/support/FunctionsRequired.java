@@ -335,6 +335,7 @@ public class FunctionsRequired {
 
     public static MovieModel[] getMovieModelForSearch(ResultSet rs,boolean privilege){
         ArrayList<MovieModel> list = new ArrayList<>();
+//        ServiceLogger.LOGGER.info("got in");
         try {
             if (!rs.next())
                 return null;
@@ -344,18 +345,30 @@ public class FunctionsRequired {
             while (rs.next()){
                 MovieModel mm;
                 if (privilege) {
+//                    mm = new MovieModel(rs.getString("id"),rs.getString("title"),
+//                            rs.getString("director"),rs.getInt("year"),rs.getString("backdrop_path"),
+//                            rs.getInt("budget"),rs.getString("overview"),
+//                            rs.getString("poster_path"),rs.getInt("revenue"),rs.getFloat("rating"),
+//                            rs.getInt("numVotes"),null,
+//                            null,rs.getInt("hidden"));
                     mm = new MovieModel(rs.getString("id"),rs.getString("title"),
-                            rs.getString("director"),rs.getInt("year"),rs.getString("backdrop_path"),
-                            rs.getInt("budget"),rs.getString("overview"),
-                            rs.getString("poster_path"),rs.getInt("revenue"),rs.getFloat("rating"),
+                            rs.getString("director"), rs.getInt("year"), null,
+                            null, null,
+                            null, null, rs.getFloat("rating"),
                             rs.getInt("numVotes"),null,
                             null,rs.getInt("hidden"));
                 }
                 else {
+//                    mm = new MovieModel(rs.getString("id"),rs.getString("title"),
+//                            rs.getString("director"),rs.getInt("year"),rs.getString("backdrop_path"),
+//                            rs.getInt("budget"),rs.getString("overview"),
+//                            rs.getString("poster_path"),rs.getInt("revenue"),rs.getFloat("rating"),
+//                            rs.getInt("numVotes"),null,
+//                            null,null);
                     mm = new MovieModel(rs.getString("id"),rs.getString("title"),
-                            rs.getString("director"),rs.getInt("year"),rs.getString("backdrop_path"),
-                            rs.getInt("budget"),rs.getString("overview"),
-                            rs.getString("poster_path"),rs.getInt("revenue"),rs.getFloat("rating"),
+                            rs.getString("director"), rs.getInt("year"), null,
+                            null, null,
+                            null, null, rs.getFloat("rating"),
                             rs.getInt("numVotes"),null,
                             null,null);
                 }
@@ -363,6 +376,8 @@ public class FunctionsRequired {
             }
         }catch (SQLException e){
             ServiceLogger.LOGGER.warning(ExceptionUtils.exceptionStackTraceAsString(e));
+        } catch (Exception e) {
+            ServiceLogger.LOGGER.severe(ExceptionUtils.exceptionStackTraceAsString(e));
         }
         if (list.size()==0)
             return null;
@@ -370,6 +385,7 @@ public class FunctionsRequired {
         for (int i=0;i<list.size();++i){
             result[i] = list.get(i);
         }
+//        ServiceLogger.LOGGER.info("left");
         return result;
     }
 

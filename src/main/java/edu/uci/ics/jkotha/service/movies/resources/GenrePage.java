@@ -37,11 +37,11 @@ public class GenrePage {
         GenresResponseModel responseModel;
 
         //check for privilege
-        if(!IdmRequests.hasPrivilegeLevelof3(email)){
-            ServiceLogger.LOGGER.info("Result code:"+141);
-            responseModel = new GenresResponseModel(141);
-            return Response.status(Response.Status.OK).header("email", email).header("sessionId", sessionId).header("transactionID", transactionId).entity(responseModel).build();
-        }
+//        if(!IdmRequests.hasPrivilegeLevelof3(email)){
+//            ServiceLogger.LOGGER.info("Result code:"+141);
+//            responseModel = new GenresResponseModel(141);
+//            return Response.status(Response.Status.OK).header("email", email).header("sessionId", sessionId).header("transactionID", transactionId).entity(responseModel).build();
+//        }
 
         ServiceLogger.LOGGER.info("Result code:"+219);
         responseModel = new GenresResponseModel(219, FunctionsRequired.getGenres());

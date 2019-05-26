@@ -38,16 +38,24 @@ public class MovieModel {
         this.director = director;
         this.year = year;
         this.backdrop_path = backdrop_path;
-        if (budget ==0)
-            this.budget=null;
-        else
-            this.budget = budget;
+        if (budget != null) {
+            if (budget == 0)
+                this.budget = null;
+            else
+                this.budget = budget;
+        } else {
+            this.budget = null;
+        }
         this.overview = overview;
         this.poster_path = poster_path;
-        if (revenue==0)
-            this.revenue =null;
-        else
-            this.revenue = revenue;
+        if (revenue != null) {
+            if (revenue == 0)
+                this.revenue = null;
+            else
+                this.revenue = revenue;
+        } else {
+            this.revenue = null;
+        }
         this.rating = rating;
         this.numVotes = numVotes;
         this.genres = genres;
