@@ -49,13 +49,22 @@ public class SearchPage {
             xyear = "%%";
         if (limit != 25 && limit != 10 && limit != 100 && limit != 50)
             limit = 10;
-        if (offset % 25 != 0 || offset < 0)
+        if (offset < 0 || offset % limit != 0)
             offset=0;
         if (!sortby.equals("rating")  & !sortby.equals("title"))
             sortby = "rating";
         if (!orderby.equals("asc") & !orderby.equals("desc"))
             orderby = "desc";
         String xdirector = "%"+director+"%";
+        String secondarySortBy, secondaryOrderBy;
+        if (sortby.equalsIgnoreCase("rating")) {
+            secondarySortBy = "title";
+            secondaryOrderBy = "asc";
+        } else {
+            secondarySortBy = "rating";
+            secondaryOrderBy = "desc";
+        }
+
 
         //users privilege
         boolean hasPrivilege = IdmRequests.hasPrivilegeLevelof3(email);
@@ -73,7 +82,7 @@ public class SearchPage {
                 "and m.director like ? " +//3.director
                 "and g.name like ? " +//4.genre
                 "group by m.id " +
-                "order by "+sortby+" "+orderby+" "+
+                "order by " + sortby + " " + orderby + "," + secondarySortBy + " " + secondaryOrderBy + " " +
                 "limit ? offset ?";//5.limit 6.offset
         try {
             PreparedStatement query = MovieService.getCon().prepareStatement(statement);
