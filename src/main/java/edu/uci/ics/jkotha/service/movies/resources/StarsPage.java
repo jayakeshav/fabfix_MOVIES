@@ -53,14 +53,23 @@ public class StarsPage {
         else
             xyear = "%%";
 
+        String secondarySortBy, secondaryOrderBy;
+        if (sortby.equalsIgnoreCase("name")) {
+            secondarySortBy = "birthYear";
+            secondaryOrderBy = "asc";
+        } else {
+            secondarySortBy = "name";
+            secondaryOrderBy = "asc";
+        }
+
         try {
-            String ps = "select s.id, s.name, s.birthYear " +
+            String ps = "select distinct s.id, s.name, s.birthYear " +
                     "from (stars as s left join stars_in_movies as sm on s.id = sm.starId) " +
                     "left join movies as m on m.id = sm.movieId " +
                     "where s.name like ? " +//1.name
                     "and s.birthYear like ? " +//2.year
                     "and m.title like ? " +//3.title
-                    "order by "+sortby+" "+ orderby + " "+
+                    "order by " + sortby + " " + orderby + "," + secondarySortBy + " " + secondaryOrderBy + " " +
                     "limit ? offset ? ";//4.limit 5.offset
             PreparedStatement query3 = MovieService.getCon().prepareStatement(ps);
             query3.setString(1,xname);
