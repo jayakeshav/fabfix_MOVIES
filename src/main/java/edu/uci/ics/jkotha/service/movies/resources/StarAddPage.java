@@ -79,7 +79,7 @@ public class StarAddPage {
             PreparedStatement insertStatement = MovieService.getCon().prepareStatement(insert);
             insertStatement.setString(1,id);
             insertStatement.setString(2,requestModel.getName());
-            insertStatement.setInt(3,Integer.parseInt(requestModel.getBirthyear()));
+            insertStatement.setInt(3, Integer.parseInt(requestModel.getBirthYear()));
             insertStatement.execute();
             ServiceLogger.LOGGER.info("Result code:"+220);
             responseModel = new DefaultResponseModel(220);
@@ -138,7 +138,7 @@ public class StarAddPage {
             ResultSet rs = checkQuery.executeQuery();
 
             if (rs.next()){
-                if (rs.getInt("test")==1){
+                if (rs.getInt("test") != 1) {
                     ServiceLogger.LOGGER.info("Result code:"+211);
                     responseModel = new DefaultResponseModel(211);
                     return Response.status(Response.Status.OK).header("email",email).header("sessionId",sessionId).header("transactionId",transactionId).entity(responseModel).build();

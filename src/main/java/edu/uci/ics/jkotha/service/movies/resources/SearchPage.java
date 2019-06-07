@@ -47,10 +47,10 @@ public class SearchPage {
             xyear = "%"+year+"%";
         else
             xyear = "%%";
-//        if (limit != 25 && limit != 10 && limit != 100 && limit != 50)
-//            limit = 10;
-//        if (offset < 0 || offset % limit != 0)
-//            offset=0;
+        if (limit != 25 && limit != 10 && limit != 100 && limit != 50)
+            limit = 10;
+        if (offset < 0 || offset % limit != 0)
+            offset = 0;
         if (!sortby.equals("rating")  & !sortby.equals("title"))
             sortby = "rating";
         if (!orderby.equals("asc") & !orderby.equals("desc"))

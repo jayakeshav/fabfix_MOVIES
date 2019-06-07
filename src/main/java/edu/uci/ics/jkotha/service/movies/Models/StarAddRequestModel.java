@@ -6,20 +6,22 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class StarAddRequestModel {
     @JsonProperty(value = "name",required = true)
     private String name;
-    @JsonProperty(value = "birthyear",required = true)
-    private String birthyear;
+    @JsonProperty(value = "birthYear", required = true)
+    private String birthYear;
 
     @JsonCreator
     public StarAddRequestModel(
             @JsonProperty(value = "name",required = true) String name,
-            @JsonProperty(value = "birthYear",required = true) String birthyear) {
+            @JsonProperty(value = "birthYear", required = true) String birthYear) {
         this.name = name;
-        this.birthyear = birthyear;
+        this.birthYear = birthYear;
     }
 
     @JsonProperty
     public String getName() { return name; }
 
     @JsonProperty
-    public String getBirthyear() { return birthyear; }
+    public String getBirthYear() {
+        return birthYear;
+    }
 }
